@@ -463,8 +463,8 @@ img {
    Projects Section
    ========================================================================== */
 .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     margin-top: 3rem;
 }
@@ -475,15 +475,33 @@ img {
     border-radius: var(--border-radius);
     padding: 2rem;
     display: flex;
-    flex-direction: column;
-    transition: var(--transition);
+    gap: 2rem;
     height: 100%;
+    transition: var(--transition);
+}
+
+.project-card .project-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: var(--transition);
 }
 
 .project-card:hover {
     transform: translateY(-10px);
     border-color: var(--accent-color);
     box-shadow: var(--box-shadow);
+}
+
+.project-img {
+    max-width: 50%;
+    min-height: 100%;
+    border-radius: 20px;
+}
+
+.project-img img {
+    border-radius: 20px;
+    min-height: 100%;
 }
 
 .project-desc {
@@ -567,6 +585,18 @@ img {
 
     .intro-image {
         justify-content: center;
+    }
+
+    .project-card {
+        flex-direction: column;
+    }
+
+    .project-img {
+        max-width: 100%;
+    }
+
+    main {
+        overflow: hidden;
     }
 }
 

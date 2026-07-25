@@ -1,0 +1,30 @@
+name: Upload to S3
+
+on:
+  push:
+      branches:
+        - main
+
+jobs:
+  deploy-html-cicd:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      BUCKET: www.cadealmond.com
+      REGION: us-east-1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        ## -- Copy to S3 -- ##
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ env.REGION }}
+          S3_BUCKET: ${{ env.BUCKET }}
+        run: |
+          aws s3 sync . s3://${{ env.BUCKET }} \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --delete
